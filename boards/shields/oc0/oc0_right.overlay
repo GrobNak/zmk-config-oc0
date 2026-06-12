@@ -3,8 +3,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        // CHANGE THIS LINE: Point to your existing transform &matrix_transform0
-        zmk,matrix-transform = &matrix_transform0; 
+        zmk,matrix-transform = &matrix_transform0;
     };
 
     kscan0: kscan0 {
@@ -12,6 +11,7 @@
         diode-direction = "col2row";
         wakeup-source;
 
+        /* Right Half Columns (Same pins, but logic shifts them to 6-11) */
         col-gpios
             = <&pro_micro 14 GPIO_ACTIVE_HIGH>
             , <&pro_micro 16 GPIO_ACTIVE_HIGH>
@@ -21,6 +21,7 @@
             , <&pro_micro 6 GPIO_ACTIVE_HIGH>
             ;
 
+        /* Rows (Same pins) */
         row-gpios
             = <&pro_micro 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -32,7 +33,7 @@
 };
 
 &matrix_transform0 {
-    col-offset = <6>;
+    col-offset = <6>; /* Right half starts at column 6 */
 };
 
 &physical_layout_oc0 {
