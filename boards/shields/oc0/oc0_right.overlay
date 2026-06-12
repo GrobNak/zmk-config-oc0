@@ -3,8 +3,7 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        // Use the local right-side transform
-        zmk,matrix-transform = &matrix_transform_right; 
+        zmk,matrix-transform = &matrix_transform_left; 
     };
 
     kscan0: kscan0 {
@@ -12,10 +11,6 @@
         diode-direction = "col2row"; 
         wakeup-source;
 
-        /* 
-           RIGHT HALF COLUMNS ONLY (6 Pins)
-           SAME PIN NUMBERS AS LEFT SIDE (each MCU is independent)
-        */
         col-gpios
             = <&pro_micro 14 GPIO_ACTIVE_HIGH>
             , <&pro_micro 16 GPIO_ACTIVE_HIGH>
@@ -25,7 +20,6 @@
             , <&pro_micro 6 GPIO_ACTIVE_HIGH>
             ;
 
-        /* Rows (Identical to left side) */
         row-gpios
             = <&pro_micro 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -35,14 +29,8 @@
             ;
     };
 
-    /* 
-       DEFINITION FOR THE RIGHT SIDE MATRIX 
-       It scans 6 physical columns.
-       The 'col-offset' makes ZMK treat them as Columns 6-11 in the global matrix.
-    */
-    matrix_transform_right: matrix_transform_right {
+    matrix_transform_left: matrix_transform_left {
         compatible = "zmk,matrix-transform";
-        
         columns = <6>; 
         rows = <5>; 
         
@@ -51,18 +39,17 @@
             RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5)
             RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)
             RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5)
-            /* Thumb keys on right side */
             RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5)
         >;
     };
 };
 
-/* Apply the offset here so this side maps to logical cols 6-11 */
-&matrix_transform_right {
-    col-offset = <6>; 
-};
-
+/* OVERRIDE physical_layout_oc0 to use LOCAL transform */
 &physical_layout_oc0 {
-    transform = <&matrix_transform_right>;
+    transform = <&matrix_transform_left>;
     kscan = <&kscan0>;
 };
+
+&matrix_transform0 {
+    col-offset = <6>; // Offset by the number of columns on the left half
+};   
