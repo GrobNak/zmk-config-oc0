@@ -1,4 +1,3 @@
-#include "oc0-layouts.dtsi"
 #include <dt-bindings/zmk/matrix_transform.h>
 
 / {
@@ -6,6 +5,12 @@
         compatible = "zmk,matrix-transform";
         columns = <12>;
         rows = <5>;
+        /* 
+           Left Half: Columns 0-5
+           Right Half: Columns 6-11
+           The bottom row (Row 4) has only 6 keys centered. 
+           Adjust RC(row, col) order to match your physical layout if different.
+        */
         map = <
             RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
             RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10) RC(1,11)
@@ -18,5 +23,4 @@
 
 &physical_layout_oc0 {
     transform = <&matrix_transform0>;
-};
-
+};   
