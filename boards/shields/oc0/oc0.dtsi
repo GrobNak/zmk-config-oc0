@@ -1,5 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-#include <physical_layouts.dtsi> // Add this line
+#include <physical_layouts.dtsi>
 
 / {
     matrix_transform0: matrix_transform0 {
@@ -14,8 +14,10 @@
             RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7) RC(4,8)
         >;
     };
-};
 
-&physical_layout_oc0 {
-    transform = <&matrix_transform0>;
+    physical_layout_oc0: physical_layout_oc0 {
+        compatible = "zmk,physical-layout";
+        display-name = "OC0";
+        transform = <&matrix_transform0>;
+    };
 };   
