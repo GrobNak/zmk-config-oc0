@@ -1,10 +1,10 @@
 #include "oc0.dtsi"
 
 / {
-    // ADD THE chosen NODE HERE
     chosen {
         zmk,kscan = &kscan0;
-        zmk,matrix-transform = &matrix_transform0; // Points to your existing transform
+        // CHANGE THIS LINE: Point to your existing transform &matrix_transform0
+        zmk,matrix-transform = &matrix_transform0; 
     };
 
     kscan0: kscan0 {
@@ -31,7 +31,6 @@
     };
 };
 
-// Your existing transform and physical layout
 &matrix_transform0 {
     col-offset = <6>;
 };
