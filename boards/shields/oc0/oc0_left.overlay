@@ -1,4 +1,4 @@
-won't connect to my device?#include "oc0.dtsi"
+#include "oc0.dtsi"
 
 / {
     chosen {
