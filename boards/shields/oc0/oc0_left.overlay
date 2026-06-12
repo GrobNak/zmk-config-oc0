@@ -5,7 +5,6 @@
         zmk,kscan = &kscan0;
         zmk,physical-layout = &physical_layout_oc0;
     };
-};   
 
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
@@ -45,8 +44,7 @@
     };
 };
 
-/* OVERRIDE physical_layout_oc0 to use LOCAL transform */
 &physical_layout_oc0 {
     transform = <&matrix_transform_left>;
     kscan = <&kscan0>;
-};
+};   
